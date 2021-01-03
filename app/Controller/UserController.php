@@ -35,8 +35,7 @@ class UserController
             foreach ($validate->getErrors() as $error) {
                 $msg->error($error);
             }
-            redirect('/');
-            return;
+            return redirect('/addUser');
 
         }
         $db = new DB();
