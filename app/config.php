@@ -2,7 +2,7 @@
 
 
 return [
-    'database' => 'blog',
+    'database' => 'bookshop',
     'username' => 'root',
     'password' => ''
 ];

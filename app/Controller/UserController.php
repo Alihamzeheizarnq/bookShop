@@ -6,68 +6,23 @@ use Plasticbrain\FlashMessages\FlashMessages;
 
 class UserController
 {
-    /**
-     *
-     */
-    public function index()
+    public function listUser()
     {
-        view('home');
-    }
+        $users = new DB();
+        $users::$tableName = 'users';
 
-    /**
-     *
-     */
-
-    public function add()
-    {
-        $validate = new Validation();
-        $roule = [
-            'name' => 'required',
-            'email' => 'required|unic|email',
-            'tel' => 'required|int|min:11|max:11',
-            'location' => 'required'
-        ];
-
-
-        if ($validate->make($roule, request()->all()) == false) {
-            $msg = new FlashMessages();
-
-            foreach ($validate->getErrors() as $error) {
-                $msg->error($error);
-            }
-            return redirect('/addUser');
-
-        }
-        $db = new DB();
-        $db::$tableName = 'user';
-        $result = $db->created([
-            'name' => request('name'),
-            'email' => request('email'),
-            'tel' => request('tel'),
-            'location' => request('location')
-        ]);
-        if ($result){
-            redirect('/');
-        }
-
-    }
-
-    public function show()
-    {
-        DB::$tableName = 'user';
-        $users = DB::select()->get();
-
-        view('list',compact('users'));
+        $users = $users::select()->get();
+        return view('userList', compact('users'));
     }
 
     public function deleteUser($id)
     {
-    $delete = new DB();
-    $delete::$tableName = 'user';
+        $users = new DB();
+        $users::$tableName = 'users';
+        $users->delete($id);
+        redirect('/users-list');
 
-    if ($delete->delete($id)){
-        redirect('/');
-    };
     }
+
 
 }

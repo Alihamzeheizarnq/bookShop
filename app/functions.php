@@ -37,15 +37,60 @@ function keys($keyName)
         case 'location':
             $result = 'آدرس';
             break;
+        case 'password':
+            $result = 'پسوورد';
+            break;
+        case 'price':
+            $result = 'قیمت';
+            break;
+            case 'img':
+            $result = 'عکس';
+            break;
+            case 'bookfile':
+            $result = 'فایل ';
+            break;
+            case 'text':
+            $result = 'توضیحات';
+            break;
+        case 'lastname':
+            $result = 'نام خانوادگی';
+            break;
+            case 'username';
+            $result = 'نام کاریری';
+            break;
+        case 'confirm_password':
+            $result = 'تکرار پسوورد';
+            break;
+
     }
     return $result;
 }
 
+function admin()
+{
+    if (!isset($_SESSION['admin'])) {
+        return redirect('/admin');
 
-function redirect($url,$message = []){
-    extract($message,EXTR_SKIP);
-    header('Location:'.$url);
+    } else {
+        return true;
+    }
 }
-function flashError(){
+
+function redirect($url, $message = [])
+{
+    extract($message, EXTR_SKIP);
+    header('Location:' . $url);
+}
+
+function flashError()
+{
     return new \Plasticbrain\FlashMessages\FlashMessages();
+}
+
+function fl($file = null)
+{
+    if ($file)
+    return isset($_FILES[$file]) ? $_FILES[$file] : null;
+
+    return $_FILES;
 }

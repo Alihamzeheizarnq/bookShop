@@ -16,7 +16,10 @@ class Request
 
     public function all()
     {
-       return array_map('htmlspecialchars',$_POST);
+        $request = array_map('htmlspecialchars', $_POST);
+
+        return array_map('trim', $request);
+
     }
 
 
